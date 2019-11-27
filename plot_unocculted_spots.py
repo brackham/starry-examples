@@ -5,6 +5,8 @@ from matplotlib import rcParams
 
 fontsize = 16
 linewidth = 2
+tickmajorsize = 6
+ylim = (0.9865, 1.0006)
 
 rcParams['font.size'] = fontsize
 rcParams['axes.titlesize'] = fontsize
@@ -19,8 +21,8 @@ rcParams['xtick.major.width'] = linewidth
 rcParams['xtick.minor.width'] = linewidth
 rcParams['ytick.major.width'] = linewidth
 rcParams['ytick.minor.width'] = linewidth
-rcParams['xtick.major.size'] = 6
-rcParams['ytick.major.size'] = 6
+rcParams['xtick.major.size'] = tickmajorsize
+rcParams['ytick.major.size'] = tickmajorsize
 
 # plt.rc('font', size=fontsize)
 # plt.rc('axes', titlesize=fontsize)
@@ -60,10 +62,10 @@ for i, pos in enumerate(spot_pos):
     # star.show()
 
 fig, ax = plt.subplots(figsize=(4, 6))
-for i, line in enumerate(lines):
-    ax.plot(xo, line, lw=2, color=colors[i])
-
 ax.set_xlabel('Time (arbitrary)', fontsize=fontsize)
 ax.set_ylabel('Relative Flux', fontsize=fontsize)
-
-fig.savefig('starry_unocculted_spots.pdf', bbox_inches='tight')
+ax.set_ylim(ylim)
+for i, line in enumerate(lines):
+    ax.plot(xo, line, lw=2, color=colors[i])
+    fig.savefig(f'starry_unocculted_spots{i}.pdf',
+                bbox_inches='tight', transparent=True)
